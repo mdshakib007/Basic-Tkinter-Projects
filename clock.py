@@ -7,7 +7,7 @@ class DigitalClock:
         master.title("Digital Clock")
 
         # Create label widget to display the time
-        self.time_label = tk.Label(master, font=('Arial', 30), fg='black', bg='skyblue')
+        self.time_label = tk.Label(master, font=('Arial', 30), fg='black', bg='aqua')
         self.time_label.pack(pady=50, padx=50)
 
         # Update the time every 200 milliseconds
