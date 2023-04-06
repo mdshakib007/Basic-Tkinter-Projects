@@ -9,14 +9,14 @@ import os
 
 def new_text_file():
     global file
-    root.title('Untitled-1 - NotePaaD')
+    root.title('Untitled-1   -   NotePaaD')
     # clear the text area and change the name of file
     text_area.delete(1.0, END)
 
 
 def new_file():
     global file
-    root.title('Untitled-1 - NotePaaD')
+    root.title('Untitled-1   -   NotePaaD')
     text_area.delete(1.0, END)
 
 
@@ -30,7 +30,7 @@ def open_file():
         file = None
     else:
         # change the file name as path's main file name
-        root.title(os.path.basename(file) + ' - NotePaaD')
+        root.title(os.path.basename(file) + '   -   NotePaaD')
         # when we open a file, the text area should be empty
         text_area.delete(1.0, END)
 
@@ -50,7 +50,7 @@ def recent():  # same like open_file() function
     if file == '':
         file = None
     else:
-        root.title(os.path.basename(file) + ' - NotePaaD')
+        root.title(os.path.basename(file) + '   -   NotePaaD')
         text_area.delete(1.0, END)
 
         f = open(file, 'r')
@@ -78,12 +78,13 @@ def save():
             f.close()
 
             # at last we changed the title
-            root.title(os.path.basename(file) + ' - NotePaaD')
+            root.title(os.path.basename(file) + '   -   NotePaaD')
 
     else:
         f = open(file, 'w')
         f.write(text_area.get(1.0, END))
         f.close()
+        tmsg.showinfo('Save', 'Saved Change') # show a message if user save a existing file.
 
 
 def save_as():  # just like previous function
@@ -103,9 +104,15 @@ def save_as():  # just like previous function
             f.write(text_area.get(1.0, END))
             f.close()
 
-            root.title(os.path.basename(file) + ' - NotePaaD')
+            root.title(os.path.basename(file) + '   -   NotePaaD')
 
     else:
+        file = asksaveasfilename(
+            initialfile='Untitled-1.txt',
+            defaultextension='.txt',
+            filetypes=[('All Files', '*.*'), ('Text Document',
+                                              '*.txt'), ('Python File', '*.py')])
+        
         f = open(file, 'w')
         f.write(text_area.get(1.0, END))
         f.close()
@@ -170,7 +177,7 @@ def select_font(font):
     text_area.configure(font=font)
 
 # def bangla_font():
-#     ft = Font.Font(family='Nikosh', size=12)
+#     ft = font.Font(family='Nikosh', size=12)
 #     text_area.configure(font=ft)
 
 
@@ -195,12 +202,12 @@ def underline():
 
 def welcome():
     tmsg.showinfo('Welcome Message',
-                  'Welcome to this text editor!\n\nShakib is developing this.\n\nThis is not completed yet!')
+                  'Welcome to this simple text editor!\nThis is not completed yet!')
 
 
 def doc():
     tmsg.showinfo(
-        'Documentation', 'We have no Documantation at this time,\nBut Shakib is working on it!')
+        'Documentation', 'We have no Documantation at this time,\nBut working on it!')
 
 
 def tutorial():
@@ -210,7 +217,7 @@ def tutorial():
 
 def source():
     tmsg.askquestion(
-        'Source Code', 'Source Code: https://github.com/mdshakib007/Tkinter-Projects/blob/master/texteditor.py')
+        'Share', 'Share to other and modify more.\nSource code: https://github.com/mdshakib007/Tkinter-Projects/blob/master/texteditor.py')
 
 
 def github():
@@ -229,14 +236,14 @@ def update():
 
 def about():
     tmsg.askokcancel(
-        'About NotePaaD', 'This is a simple text editor, made with python(Tkinter), by Md Shakib Ahmed.')
+        'About NotePaaD', 'This is a simple text editor, made with python(Tkinter).')
 
 
 root = Tk()
 root.configure(bg='#B9B8B8')
 root.geometry('888x555')
 root.minsize(400, 222)
-root.title('Untitled - NotePaaD  -by @Md Shakib Ahmed')
+root.title('Untitled   -   NotePaaD -by @Md Shakib Ahmed')
 
 # make menubar's
 main_menu = Menu(root)  # main horizontal menubar
@@ -257,7 +264,7 @@ m1.add_separator()
 m1.add_command(label='Exit', command=root.destroy)
 
 main_menu.add_cascade(label='File', menu=m1)
-root.config(menu=main_menu)  # done configuration of first menu bar
+# root.config(menu=main_menu)  # done configuration of first menu bar, but we need to define this for once
 
 # menu 2
 m2 = Menu(main_menu, tearoff=0)  # this is the vertical menubar
@@ -272,10 +279,10 @@ m2.add_command(label='Resize Editor', command=resize)
 m2.add_command(label='Expand Editor', command=expand)
 m2.add_separator()
 # 'quit' and 'root.destroy' is same
-m2.add_command(label='Close Editor', command=quit)
+m2.add_command(label='Close', command=quit)
 
 main_menu.add_cascade(label='Edit', menu=m2)
-root.config(menu=main_menu)  # done configuration of second menu bar
+# root.config(menu=main_menu)  # done configuration of second menu bar
 
 # menu 3
 m3 = Menu(main_menu, tearoff=0)  # this is the vertical menubar
@@ -285,7 +292,7 @@ m3.add_separator()
 
 font_menu = Menu(m3, tearoff=0)
 m3.add_cascade(label='Font', menu=font_menu)  # submenu of font
-font_menu.add_command(label='Arial (English)',
+font_menu.add_command(label='Arial (Default)',
                       command=lambda: select_font('Arial'))
 font_menu.add_command(label='Calibri (English)',
                       command=lambda: select_font('Calibri'))
@@ -342,7 +349,7 @@ m3.add_separator()
 m3.add_command(label='Close', command=quit)
 
 main_menu.add_cascade(label='Selection', menu=m3)
-root.config(menu=main_menu)  # done configuration of third menu bar
+# root.config(menu=main_menu)  # done configuration of third menu bar
 
 # menu 4
 m4 = Menu(main_menu, tearoff=0)  # this is the vertical menubar
