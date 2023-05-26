@@ -371,7 +371,7 @@ root.config(menu=main_menu)  # done configuration of 4th menu bar
 
 
 # define the text area
-text_area = Text(root, bg='white', fg='black', font='Arial 14', undo=True)
+text_area = Text(root, font='Arial 14', undo=True)
 text_area.pack(fill='both', expand=True)
 
 file = None  # define the file to none
